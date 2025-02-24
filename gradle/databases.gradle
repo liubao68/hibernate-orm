@@ -58,8 +58,8 @@ ext {
                 pgsql : [
                         'db.dialect' : 'org.hibernate.dialect.PostgreSQLDialect',
                         'jdbc.driver': 'org.postgresql.Driver',
-                        'jdbc.user'  : 'hibernate_orm_test',
-                        'jdbc.pass'  : 'hibernate_orm_test',
+                        'jdbc.user'  : 'postgres',
+                        'jdbc.pass'  : 'chenzhida',
                         // Disable prepared statement caching due to https://www.postgresql.org/message-id/CAEcMXhmmRd4-%2BNQbnjDT26XNdUoXdmntV9zdr8%3DTu8PL9aVCYg%40mail.gmail.com
                         'jdbc.url'   : 'jdbc:postgresql://' + dbHost + '/hibernate_orm_test?preparedStatementCacheQueries=0&escapeSyntaxCallMode=callIfNoReturn',
                         'jdbc.datasource' : 'org.postgresql.Driver',
@@ -80,8 +80,8 @@ ext {
                 gaussdb : [
                         'db.dialect' : 'org.hibernate.dialect.GaussDBDialect',
                         'jdbc.driver': 'com.huawei.gaussdb.jdbc.Driver',
-                        'jdbc.user'  : 'hibernate_orm_test',
-                        'jdbc.pass'  : 'hibernate_orm_test12',
+                        'jdbc.user'  : 'root',
+                        'jdbc.pass'  : 'czd@1106403012',
                         // Disable prepared statement caching to avoid issues with changing schemas
                         // Make batch verification work, see https://bbs.huaweicloud.com/forum/thread-02104174303512776081-1-1.html
                         'jdbc.url'   : 'jdbc:gaussdb://' + dbHost + '/hibernate_orm_test?preparedStatementCacheQueries=0&batchMode=off',
@@ -124,8 +124,8 @@ ext {
                 mysql : [
                         'db.dialect' : 'org.hibernate.dialect.MySQLDialect',
                         'jdbc.driver': 'com.mysql.cj.jdbc.Driver',
-                        'jdbc.user'  : 'hibernateormtest',
-                        'jdbc.pass'  : 'hibernateormtest',
+                        'jdbc.user'  : 'root',
+                        'jdbc.pass'  : 'chenzhida',
                         'jdbc.url'   : 'jdbc:mysql://' + dbHost + '/hibernate_orm_test',
                         'jdbc.datasource' : 'com.mysql.jdbc.Driver',
 //                        'jdbc.datasource' : 'com.mysql.cj.jdbc.MysqlDataSource',
