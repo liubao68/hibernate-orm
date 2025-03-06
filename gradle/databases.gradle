@@ -58,10 +58,10 @@ ext {
                 pgsql : [
                         'db.dialect' : 'org.hibernate.dialect.PostgreSQLDialect',
                         'jdbc.driver': 'org.postgresql.Driver',
-                        'jdbc.user'  : 'hibernateormtest',
-                        'jdbc.pass'  : 'hibernateormtest',
+                        'jdbc.user'  : 'hibernate_orm_test',
+                        'jdbc.pass'  : 'hibernate_orm_test',
                         // Disable prepared statement caching due to https://www.postgresql.org/message-id/CAEcMXhmmRd4-%2BNQbnjDT26XNdUoXdmntV9zdr8%3DTu8PL9aVCYg%40mail.gmail.com
-                        'jdbc.url'   : 'jdbc:postgresql://' + dbHost + '/hibernate_orm_test?currentSchema=test&preparedStatementCacheQueries=0&escapeSyntaxCallMode=callIfNoReturn',
+                        'jdbc.url'   : 'jdbc:postgresql://' + dbHost + '/hibernate_orm_test?preparedStatementCacheQueries=0&escapeSyntaxCallMode=callIfNoReturn',
                         'jdbc.datasource' : 'org.postgresql.Driver',
 //                        'jdbc.datasource' : 'org.postgresql.ds.PGSimpleDataSource',
                         'connection.init_sql' : ''
@@ -72,7 +72,7 @@ ext {
                         'jdbc.user'  : 'hibernate_orm_test',
                         'jdbc.pass'  : 'hibernate_orm_test',
                         // Disable prepared statement caching due to https://www.postgresql.org/message-id/CAEcMXhmmRd4-%2BNQbnjDT26XNdUoXdmntV9zdr8%3DTu8PL9aVCYg%40mail.gmail.com
-                        'jdbc.url'   : 'jdbc:postgresql://' + dbHost + '/hibernate_orm_test?currentSchema=test&preparedStatementCacheQueries=0&escapeSyntaxCallMode=callIfNoReturn',
+                        'jdbc.url'   : 'jdbc:postgresql://' + dbHost + '/hibernate_orm_test?preparedStatementCacheQueries=0&escapeSyntaxCallMode=callIfNoReturn',
                         'jdbc.datasource' : 'org.postgresql.Driver',
 //                        'jdbc.datasource' : 'org.postgresql.ds.PGSimpleDataSource',
                         'connection.init_sql' : ''
@@ -80,11 +80,11 @@ ext {
                 gaussdb : [
                         'db.dialect' : 'org.hibernate.dialect.GaussDBDialect',
                         'jdbc.driver': 'com.huawei.gaussdb.jdbc.Driver',
-                        'jdbc.user'  : 'root',
-                        'jdbc.pass'  : 'czd@1106403012',
+                        'jdbc.user'  : 'hibernate_orm_test',
+                        'jdbc.pass'  : 'hibernate_orm_test12',
                         // Disable prepared statement caching to avoid issues with changing schemas
                         // Make batch verification work, see https://bbs.huaweicloud.com/forum/thread-02104174303512776081-1-1.html
-                        'jdbc.url'   : 'jdbc:gaussdb://' + dbHost + '/hibernate_orm_test?currentSchema=test&preparedStatementCacheQueries=0&batchMode=off',
+                        'jdbc.url'   : 'jdbc:gaussdb://' + dbHost + '/hibernate_orm_test?preparedStatementCacheQueries=0&batchMode=off',
                         'jdbc.datasource' : 'com.huawei.gaussdb.jdbc.Driver',
                         'connection.init_sql' : ''
                 ],
@@ -124,8 +124,8 @@ ext {
                 mysql : [
                         'db.dialect' : 'org.hibernate.dialect.MySQLDialect',
                         'jdbc.driver': 'com.mysql.cj.jdbc.Driver',
-                        'jdbc.user'  : 'root',
-                        'jdbc.pass'  : 'chenzhida',
+                        'jdbc.user'  : 'hibernateormtest',
+                        'jdbc.pass'  : 'hibernateormtest',
                         'jdbc.url'   : 'jdbc:mysql://' + dbHost + '/hibernate_orm_test',
                         'jdbc.datasource' : 'com.mysql.jdbc.Driver',
 //                        'jdbc.datasource' : 'com.mysql.cj.jdbc.MysqlDataSource',
