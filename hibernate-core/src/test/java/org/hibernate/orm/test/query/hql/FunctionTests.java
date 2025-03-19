@@ -177,7 +177,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testImplicitCollectionJoinInSelect(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -213,7 +212,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testImplicitCollectionJoinInWhere(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -282,7 +280,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testAggregateIndicesElementsWithPath(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -394,7 +391,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testMaxindexMaxelement(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -514,7 +510,7 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
+	@SkipForDialect( dialectClass = GaussDBDialect.class, reason = "Unsupported function")
 	public void testMathFunctions(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
