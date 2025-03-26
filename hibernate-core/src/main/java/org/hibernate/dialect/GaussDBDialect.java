@@ -533,11 +533,9 @@ public class GaussDBDialect extends Dialect {
 		//also natively supports ANSI-style substring()
 		functionFactory.translate();
 		functionFactory.toCharNumberDateTimestamp();
-		functionFactory.concat_pipeOperator( "convert_from(lo_get(?1),pg_client_encoding())" );
 		functionFactory.localtimeLocaltimestamp();
-		functionFactory.length_characterLength_pattern( "length(lo_get(?1),pg_client_encoding())" );
-		functionFactory.bitLength_pattern( "bit_length(?1)", "length(lo_get(?1))*8" );
-		functionFactory.octetLength_pattern( "octet_length(?1)", "length(lo_get(?1))" );
+		functionFactory.bitLength_pattern( "bit_length(?1)", "length(?1)*8" );
+		functionFactory.octetLength_pattern( "octet_length(?1)", "length(?1)" );
 		functionFactory.ascii();
 		functionFactory.char_chr();
 		functionFactory.position();
@@ -575,12 +573,13 @@ public class GaussDBDialect extends Dialect {
 		functionFactory.arraySet_gaussdb();
 		functionFactory.arrayTrim_gaussdb();
 		functionFactory.arrayFill_gaussdb();
+		functionFactory.arrayPosition_gaussdb();
 
 		functionFactory.jsonValue_gaussdb(true);
-		functionFactory.jsonQuery();
-		functionFactory.jsonExists();
-		functionFactory.jsonObject();
+		functionFactory.jsonQuery_gaussdb();
+		functionFactory.jsonExists_gaussdb();
 		functionFactory.jsonArray();
+		functionFactory.jsonObject_gaussdb();
 		functionFactory.jsonArrayAgg_gaussdb( true );
 		functionFactory.jsonObjectAgg_gaussdb( true );
 		functionFactory.jsonTable();
@@ -589,8 +588,8 @@ public class GaussDBDialect extends Dialect {
 		functionFactory.jsonRemove_gaussdb();
 		functionFactory.jsonReplace_gaussdb();
 		functionFactory.jsonInsert_gaussdb();
+		functionFactory.jsonArray_gaussdb();
 		functionFactory.jsonMergepatch_gaussdb();
-		functionFactory.jsonArrayInsert_gaussdb();
 
 		functionFactory.xmlelement();
 		functionFactory.xmlcomment();
@@ -613,7 +612,7 @@ public class GaussDBDialect extends Dialect {
 		}
 
 		// uses # instead of ^ for XOR
-		functionContributions.getFunctionRegistry().patternDescriptorBuilder( "bitxor", "(?1#?2)" )
+		functionContributions.getFunctionRegistry().patternDescriptorBuilder( "bitxor", "(?1 # ?2)" )
 				.setExactArgumentCount( 2 )
 				.setArgumentTypeResolver( StandardFunctionArgumentTypeResolvers.ARGUMENT_OR_IMPLIED_RESULT_TYPE )
 				.register();
@@ -1408,19 +1407,6 @@ public class GaussDBDialect extends Dialect {
 	@Override
 	public boolean canBatchTruncate() {
 		return true;
-	}
-
-	// disabled foreign key constraints still prevent 'truncate table'
-	// (these would help if we used 'delete' instead of 'truncate')
-
-	@Override
-	public String rowId(String rowId) {
-		return "ctid";
-	}
-
-	@Override
-	public int rowIdSqlType() {
-		return OTHER;
 	}
 
 	@Override
