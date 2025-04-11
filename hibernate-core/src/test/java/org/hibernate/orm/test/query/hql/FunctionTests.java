@@ -510,7 +510,7 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class, reason = "Unsupported function")
+	@SkipForDialect( dialectClass = GaussDBDialect.class, reason = "type:resolved.Unsupported function")
 	public void testMathFunctions(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -736,7 +736,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testOverlayFunction(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -950,7 +949,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testCastFunction(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1021,7 +1019,9 @@ public class FunctionTests {
 					assertThat( session.createQuery("select cast('1911-10-09' as Date)", Date.class).getSingleResult(), instanceOf(Date.class) );
 					assertThat( session.createQuery("select cast('1911-10-09 12:13:14.123' as Timestamp)", Timestamp.class).getSingleResult(), instanceOf(Timestamp.class) );
 
-					assertThat( session.createQuery("select cast(date 1911-10-09 as String)", String.class).getSingleResult(), is("1911-10-09") );
+					if ( !(session.getJdbcServices().getDialect() instanceof GaussDBDialect ) ) {
+						assertThat( session.createQuery("select cast(date 1911-10-09 as String)", String.class).getSingleResult(), is("1911-10-09") );
+					}
 					assertThat( session.createQuery("select cast(time 12:13:14 as String)", String.class).getSingleResult(), anyOf( is("12:13:14"), is("12:13:14.0000"), is("12.13.14") ) );
 					assertThat( session.createQuery("select cast(datetime 1911-10-09 12:13:14 as String)", String.class).getSingleResult(), anyOf( startsWith("1911-10-09 12:13:14"), startsWith("1911-10-09-12.13.14") ) );
 
@@ -1174,7 +1174,7 @@ public class FunctionTests {
 	@SkipForDialect(dialectClass = DB2Dialect.class, majorVersion = 10, minorVersion = 5, reason = "On this version the length of the cast to the parameter appears to be > 2")
 	@SkipForDialect( dialectClass = AltibaseDialect.class, reason = "Altibase cast to raw does not do truncatation")
 	@SkipForDialect(dialectClass = HSQLDialect.class, reason = "HSQL interprets string as hex literal and produces error")
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
+	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "type:resolved.Gaussdb bytea doesn't have a length")
 	public void testCastBinaryWithLength(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1214,7 +1214,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testStrFunction(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1223,7 +1222,9 @@ public class FunctionTests {
 					session.createQuery("select str(e.id), str(e.theInt), str(e.theDouble) from EntityOfBasics e", Object[].class)
 							.list();
 					assertThat( session.createQuery("select str(69)", String.class).getSingleResult(), is("69") );
-					assertThat( session.createQuery("select str(date 1911-10-09)", String.class).getSingleResult(), is("1911-10-09") );
+					if ( !(session.getJdbcServices().getDialect() instanceof GaussDBDialect ) ) {
+						assertThat( session.createQuery("select str(date 1911-10-09)", String.class).getSingleResult(), is("1911-10-09") );
+					}
 					assertThat( session.createQuery("select str(time 12:13:14)", String.class).getSingleResult(), anyOf( is( "12:13:14"), is( "12:13:14.0000"), is( "12.13.14") ) );
 				}
 		);
@@ -1662,7 +1663,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testDurationBy(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1683,7 +1683,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testDurationLiterals(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1793,7 +1792,7 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
+	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "type:resolved.interval_mul result month: 0.000000, day: 432000000000000.000000 overflow")
 	public void testDurationArithmeticWithLiterals(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1896,7 +1895,7 @@ public class FunctionTests {
 	@SkipForDialect(dialectClass = SybaseDialect.class,
 			matchSubTypes = true,
 			reason = "numeric overflow")
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
+	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "type:resolved.interval_mul result month: 0.000000, day: 432000000000000.000000 overflow")
 	public void testDurationSubtractionWithDatetimeLiterals(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2185,7 +2184,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testExtractFunctionWithAssertions(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2290,7 +2288,6 @@ public class FunctionTests {
 
 	@Test
 	@RequiresDialectFeature(feature = DialectFeatureChecks.SupportsFormat.class)
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testFormat(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2325,7 +2322,6 @@ public class FunctionTests {
 
 	@Test
 	@RequiresDialectFeature(feature = DialectFeatureChecks.SupportsMedian.class)
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testMedian(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2347,7 +2343,7 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
+	@SkipForDialect( dialectClass = GaussDBDialect.class, reason = "type:resolved.Function sinh(double precision) does not exist.")
 	public void testHyperbolic(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2421,7 +2417,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testMaxGreatest(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2530,7 +2525,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class)
 	public void testTupleInSubqueryResult(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {

@@ -667,8 +667,7 @@ abstract public class DialectFeatureChecks {
 	public static class SupportsJsonComponentUpdate implements DialectFeatureCheck {
 		public boolean apply(Dialect dialect) {
 			try {
-				dialect.getAggregateSupport().requiresAggregateCustomWriteExpressionRenderer( SqlTypes.JSON );
-				return true;
+				return dialect.getAggregateSupport().requiresAggregateCustomWriteExpressionRenderer( SqlTypes.JSON );
 			}
 			catch (UnsupportedOperationException | IllegalArgumentException e) {
 				return false;
@@ -679,8 +678,7 @@ abstract public class DialectFeatureChecks {
 	public static class SupportsXmlComponentUpdate implements DialectFeatureCheck {
 		public boolean apply(Dialect dialect) {
 			try {
-				dialect.getAggregateSupport().requiresAggregateCustomWriteExpressionRenderer( SqlTypes.SQLXML );
-				return true;
+				return dialect.getAggregateSupport().requiresAggregateCustomWriteExpressionRenderer( SqlTypes.SQLXML );
 			}
 			catch (UnsupportedOperationException | IllegalArgumentException e) {
 				return false;
