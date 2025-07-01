@@ -1823,8 +1823,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect(dialectClass = GaussDBDialect.class,
-			reason = "GaussDB driver does not support implicit type casting to Long or Duration.")
 	public void testDurationArithmeticWithLiterals(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -2016,8 +2014,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class,
-			reason = "GaussDB driver does not support implicit type casting to Long or Duration.")
 	public void testIntervalDiffExpressions(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
