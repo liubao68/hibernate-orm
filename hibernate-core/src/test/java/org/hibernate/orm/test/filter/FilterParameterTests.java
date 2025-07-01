@@ -22,6 +22,7 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.community.dialect.AltibaseDialect;
 import org.hibernate.community.dialect.FirebirdDialect;
 import org.hibernate.community.dialect.InformixDialect;
+import org.hibernate.dialect.GaussDBDialect;
 import org.hibernate.dialect.HANADialect;
 import org.hibernate.dialect.CockroachDialect;
 import org.hibernate.dialect.DB2Dialect;
@@ -148,6 +149,7 @@ public class FilterParameterTests extends AbstractStatefulStatelessFilterTest {
 	@ParameterizedTest
 	@MethodSource("transactionKind")
 	@SkipForDialect(dialectClass = H2Dialect.class, reason = "H2 silently converts a boolean to integral types")
+	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "type:resolved.gaussdb silently converts a boolean to integral types")
 	@SkipForDialect(dialectClass = OracleDialect.class, reason = "Oracle silently converts a boolean to integral types")
 	@SkipForDialect(dialectClass = HSQLDialect.class, reason = "HSQL silently converts a boolean to integral types")
 	@SkipForDialect(dialectClass = DerbyDialect.class, reason = "Derby silently converts a boolean to integral types")
